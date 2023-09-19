@@ -4,7 +4,45 @@ Treehouse Techdegree:
 FSJS Project 2 - Data Pagination and Filtering
 */
 
+const header = document.querySelector('header');
+const studentList = document.querySelector('.student-list');
+
 const itemsPerPage = 9;
+
+const searchElement = `
+   <label for="search" class="student-search">
+      <span>Search by name</span>
+      <input id="search" placeholder="Search by name...">
+      <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
+   </label>
+`;
+header.insertAdjacentHTML('beforeend', searchElement);
+
+const searchInput = document.querySelector('#search');
+
+/*
+Searches the database according to userInput and returns matching results
+*/
+searchInput.addEventListener('keyup', () => {
+   const arrayToFilter = [];
+   const userInput = searchInput.value.toLowerCase();
+
+   for (let i = 0; i < data.length; i ++) {
+      let itemName = `${data[i].name.first} ${data[i].last}`;
+      itemName = itemName.toLowerCase();
+
+      if (itemName.includes(userInput)) {
+         arrayToFilter.push(data[i]);
+      } 
+      if (arrayToFilter.length > 0) {
+         addPagination(arrayToFilter);
+         showPage(arrayToFilter, 1);
+      } else {
+         const html = `<h3> No Results</h3>`;
+         studentList.innerHTML = html;
+      }
+   }
+});
 
 /*
 This function will create and insert/append the elements needed to display a "page" of nine students
@@ -16,7 +54,7 @@ function showPage (list, page) {
    const startIndex = (page * itemsPerPage) - itemsPerPage;
    const endIndex = (page * itemsPerPage) - 1;
 
-   const studentList = document.querySelector('.student-list');
+   
    studentList.innerHTML = ''; //removes any previously displayed students
 
    for(let i = 0; i < list.length; i ++) {
