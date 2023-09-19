@@ -120,7 +120,7 @@ function addPagination (list) {
    linkList.querySelector('button').classList.add('active');
 
       /*
-   Listens for clisks on the buttons and displays the corresponding items on the page
+   Listens for clicks on the buttons and displays the corresponding items on the page
    Passed the event listener inside the function to utilize the filtered list
    @param e -is the current click event
    */
