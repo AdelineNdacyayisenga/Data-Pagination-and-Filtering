@@ -119,37 +119,38 @@ function addPagination (list) {
 
    linkList.querySelector('button').classList.add('active');
 
+      /*
+   Listens for clisks on the buttons and displays the corresponding items on the page
+   Passed the event listener inside the function to utilize the filtered list
+   @param e -is the current click event
+   */
+
+   linkList.addEventListener('click', (e) => {
+
+      const event = e.target;
+      const activeButton = document.querySelector('.active');
+      const isClicked = event.closest('button');//makes sure user clicked the button
+
+      if(activeButton && isClicked) {
+         activeButton.className = ''; //remove active class from any other button
+      }
+      if(isClicked) {
+         isClicked.classList.add('active'); //add the active class to the clicked button
+         showPage(list, isClicked.innerHTML);
+      }
+
+      //Alternative Solution
+      
+      // if(event.tagName === 'BUTTON') { //i.e the element is clicked
+      //    //first active button
+      //    const activeButton = document.querySelector('.active');
+      //    activeButton.className = '';
+      //    event.className = 'active'; //adds active to the button that was clicked
+      //    showPage(data, event.textContent);
+      // }
+   });
+
 }
-
-/*
-Listens for clisks on the buttons and displays the corresponding items on the page
-@param e -is the current click event
-*/
-
-linkList.addEventListener('click', (e) => {
-
-   const event = e.target;
-   const activeButton = document.querySelector('.active');
-   const isClicked = event.closest('button');//makes sure user clicked the button
-
-   if(activeButton && isClicked) {
-      activeButton.className = ''; //remove active class from any other button
-   }
-   if(isClicked) {
-      isClicked.classList.add('active'); //add the active class to the clicked button
-      showPage(data, isClicked.innerHTML);
-   }
-
-   //Alternative Solution
-   
-   // if(event.tagName === 'BUTTON') { //i.e the element is clicked
-   //    //first active button
-   //    const activeButton = document.querySelector('.active');
-   //    activeButton.className = '';
-   //    event.className = 'active'; //adds active to the button that was clicked
-   //    showPage(data, event.textContent);
-   // }
-});
 
 // Calls the functions
 
