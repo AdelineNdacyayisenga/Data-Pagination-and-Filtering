@@ -6,6 +6,7 @@ FSJS Project 2 - Data Pagination and Filtering
 
 const header = document.querySelector('header');
 const studentList = document.querySelector('.student-list');
+const linkList = document.querySelector('.link-list'); //the element we will be adding to the pagination buttons
 
 const itemsPerPage = 9;
 
@@ -21,9 +22,12 @@ header.insertAdjacentHTML('beforeend', searchElement);
 const searchInput = document.querySelector('#search');
 
 /*
-Searches the database according to userInput and returns matching results
+Searches the database containing the students list
 */
-searchInput.addEventListener('keyup', () => {
+
+const searchButton = document.querySelector('.student-search button');
+
+function searchDatabase () {
    const arrayToFilter = [];
    const userInput = searchInput.value.toLowerCase();
 
@@ -38,16 +42,31 @@ searchInput.addEventListener('keyup', () => {
          addPagination(arrayToFilter);
          showPage(arrayToFilter, 1);
       } else {
+         document.querySelector('.link-list').innerHTML = '';
          const html = `<h3> No Results</h3>`;
          studentList.innerHTML = html;
       }
    }
+}
+
+/*
+Searches the database according to userInput and returns matching results when user clicks enter
+*/
+searchInput.addEventListener('keyup', () => {
+   searchDatabase();
+});
+
+/*
+Searches the database according to userInput and returns matching results when user clicks the search button
+*/
+searchButton.addEventListener('click', () => {
+   searchDatabase();
 });
 
 /*
 This function will create and insert/append the elements needed to display a "page" of nine students
-@param list - an array of items to display on the pages
-@param page - represents the requested page number
+@param {array} list - an array of items to display on the pages
+@param {number} page - represents the requested page number
 */
 
 function showPage (list, page) {
@@ -80,9 +99,9 @@ function showPage (list, page) {
 
 /*
 Creates and inserts/appends the elements needed for the pagination buttons
-@param list - an array of items to display on the pages
+@param {list} list - an array of items to display on the pages
 */
-const linkList = document.querySelector('.link-list'); //the element we will be adding to the pagination buttons
+
 function addPagination (list) {
    const buttons = Math.ceil(list.length/itemsPerPage);
    
